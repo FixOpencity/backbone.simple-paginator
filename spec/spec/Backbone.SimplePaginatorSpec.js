@@ -372,4 +372,70 @@ describe('Backbone.SimplePaginator', function() {
       expect(simplePaginator.origModels).toBeUndefined();
     });
   });
+
+  describe('removeOrigin', function () {
+    var colors;
+
+    describe('remove from first page', function () {
+      beforeEach(function() {
+        colors = new Backbone.SimplePaginator(generateColors());
+        colors.perPage = 10;
+        colors.goToFirst();
+
+        colors.forEach(function (model) {
+          colors.removeOrigin(model);
+        });
+      });
+
+      it('should totalLength 30', function () {
+        expect(simplePaginator.totalLength()).toEqual(30);
+      });
+
+      it('should totalPages 3', function () {
+        expect(simplePaginator.totalPages).toEqual(3);
+      });
+    });
+
+    describe('remove from middle page', function () {
+      beforeEach(function() {
+        colors = new Backbone.SimplePaginator(generateColors());
+        colors.perPage = 10;
+        colors.goTo(2);
+      });
+
+      it('should currentPage 2', function () {
+        colors.forEach(function (model, index) {
+          if ( index > 5 ) return;
+          colors.removeOrigin(model);
+        });
+
+        expect(simplePaginator.currentPage).toEqual(2);
+      });
+    });
+
+    describe('remove from last page', function () {
+      beforeEach(function() {
+        colors = new Backbone.SimplePaginator(generateColors());
+        colors.perPage = 10;
+        colors.goToLast();
+      });
+
+      it('should currentPage 3', function () {
+        colors.forEach(function (model) {
+          colors.removeOrigin(model);
+        });
+
+        expect(simplePaginator.currentPage).toEqual(3);
+      });
+
+      it('should currentPage 4', function () {
+        colors.forEach(function (model, index) {
+          if ( index > 5 ) return;
+          colors.removeOrigin(model);
+        });
+
+        expect(simplePaginator.currentPage).toEqual(4);
+      });
+    });
+  })
 });

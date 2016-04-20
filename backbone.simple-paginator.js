@@ -143,6 +143,10 @@
     fetch: function(options) {
       delete this.origModels;
       return Backbone.Collection.prototype.fetch.call(this, options);
+    },
+
+    removeOrigin: function () {
+
     }
 
   });
