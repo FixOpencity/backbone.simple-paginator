@@ -388,11 +388,11 @@ describe('Backbone.SimplePaginator', function() {
       });
 
       it('should totalLength 30', function () {
-        expect(simplePaginator.totalLength()).toEqual(30);
+        expect(colors.totalLength()).toEqual(30);
       });
 
       it('should totalPages 3', function () {
-        expect(simplePaginator.totalPages).toEqual(3);
+        expect(colors.totalPages).toEqual(3);
       });
     });
 
@@ -409,7 +409,7 @@ describe('Backbone.SimplePaginator', function() {
           colors.removeOrigin(model);
         });
 
-        expect(simplePaginator.currentPage).toEqual(2);
+        expect(colors.currentPage).toEqual(2);
       });
     });
 
@@ -417,6 +417,7 @@ describe('Backbone.SimplePaginator', function() {
       beforeEach(function() {
         colors = new Backbone.SimplePaginator(generateColors());
         colors.perPage = 10;
+        colors.goToFirst();
         colors.goToLast();
       });
 
@@ -425,7 +426,7 @@ describe('Backbone.SimplePaginator', function() {
           colors.removeOrigin(model);
         });
 
-        expect(simplePaginator.currentPage).toEqual(3);
+        expect(colors.currentPage).toEqual(3);
       });
 
       it('should currentPage 4', function () {
@@ -434,7 +435,7 @@ describe('Backbone.SimplePaginator', function() {
           colors.removeOrigin(model);
         });
 
-        expect(simplePaginator.currentPage).toEqual(4);
+        expect(colors.currentPage).toEqual(4);
       });
     });
   })

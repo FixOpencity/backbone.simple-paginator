@@ -145,8 +145,24 @@
       return Backbone.Collection.prototype.fetch.call(this, options);
     },
 
-    removeOrigin: function () {
+    removeOrigin: function (model) {
+      var totalPages;
+      this.models = this.origModels.filter(function (m) {
+        return model !== m;
+      } );
+      this.origModels = null;
 
+      switch (this.currentPage) {
+        case 1:
+          this.goToFirst();
+          break;
+        case this.totalPages:
+          totalPages = Math.ceil(this.models.length / this.perPage);
+          this.goTo(totalPages);
+          break;
+        default:
+          this.goTo(this.currentPage);
+      }
     }
 
   });
